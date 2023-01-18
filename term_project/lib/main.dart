@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:term_project/screens/loginpage.dart';
 import 'package:term_project/screens/student_list.dart';
 import 'package:term_project/screens/studentsignup.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()) );
 }
 
 class MyApp extends StatelessWidget {

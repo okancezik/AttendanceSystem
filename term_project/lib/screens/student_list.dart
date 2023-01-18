@@ -70,16 +70,16 @@ class _StudentListState extends State<StudentList> {
       if (result) {
         getStudents();
       }
-    } catch (e) { 
-        
-    }
+    } catch (e) {}
   }
 
   void getStudents() {
     var studentsFuture = dbHelper.getStudents();
     studentsFuture.then((value) {
-      this.students = value;
-      this.studentsCount = value.length;
+      setState(() {
+        this.students = value;
+        this.studentsCount = value.length;
+      });
     });
   }
 }

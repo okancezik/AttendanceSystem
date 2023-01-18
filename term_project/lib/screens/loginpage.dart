@@ -1,11 +1,14 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shake_animation_widget/shake_animation_widget.dart';
 import 'package:term_project/data/dbhelper.dart';
 import 'package:term_project/models/Student.dart';
+import 'package:term_project/providers/allproviders.dart';
 import 'package:term_project/screens/qrcodepage.dart';
 import 'package:term_project/screens/studentsignup.dart';
+import 'package:term_project/widgets/animationlogo.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -14,9 +17,8 @@ class LogInPage extends StatefulWidget {
   State<LogInPage> createState() => _LogInPageState();
 }
 
-class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMixin {
-  AnimationController? _animationController;
-  Animation? _animationTween;
+class _LogInPageState extends State<LogInPage>{
+  //Animation? _animationTween;
   final ShakeAnimationController _shakeAnimationController =
       ShakeAnimationController();
   bool _checkValue = false;
@@ -29,18 +31,14 @@ class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 10));
-    _animationTween =
-        AlignmentTween(begin: Alignment(-1, 0), end: Alignment(1, 0))
-            .animate(_animationController!);
-    _animationController!.repeat();
+    // _animationTween =
+    //     AlignmentTween(begin: Alignment(-1, 0), end: Alignment(1, 0))
+    //         .animate(_animationController!);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _animationController!.dispose();
     txtUsername.dispose();
     txtPassword.dispose();
   }
@@ -50,12 +48,16 @@ class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMix
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 3, 48, 85),
-        title: Text("Giriş"),
+        title: Consumer(
+          builder: (context, ref, child) {
+            var title = ref.watch(loginPageTitleProvider);
+            return Text(title);
+        },),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            getLogoWithAnimation(),
+            AnimationLogo(),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Form(
@@ -89,23 +91,6 @@ class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMix
           ],
         ),
       ),
-    );
-  }
-
-  Widget getLogoWithAnimation() {
-    return AnimatedBuilder(
-      animation: _animationController!,
-      builder: (context, child) {
-        return Transform.rotate(
-          angle: _animationController!.value * 2.0 * pi,
-          child: Container(
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/logo.png"),
-              radius: 130,
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -205,7 +190,7 @@ class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMix
                       );
                     },
                   ));
-                  _formkey.currentState!.reset();
+                  // _formkey.currentState!.reset();
                 } else {
                   _formkey.currentState!.reset();
                   _shakeAnimationController.start(shakeCount: 1);

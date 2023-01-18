@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:term_project/data/dbhelper.dart';
 import 'package:term_project/models/Student.dart';
+import 'package:term_project/providers/allproviders.dart';
+import 'package:term_project/widgets/animationlogo.dart';
 
 class StudentSignUpPage extends StatefulWidget {
   const StudentSignUpPage({super.key});
@@ -11,25 +14,14 @@ class StudentSignUpPage extends StatefulWidget {
   State<StudentSignUpPage> createState() => _StudentSignUpPageState();
 }
 
-class _StudentSignUpPageState extends State<StudentSignUpPage>
-    with SingleTickerProviderStateMixin {
+class _StudentSignUpPageState extends State<StudentSignUpPage> {
   var dbHelper = DbHelper();
   TextEditingController txtUsername = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  AnimationController? _animationController;
-
-  @override
-  void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 10));
-        _animationController!.repeat();
-    super.initState();
-  }
 
   @override
   void dispose() {
-    _animationController!.dispose();
     txtUsername.dispose();
     txtPassword.dispose();
     super.dispose();
@@ -40,14 +32,17 @@ class _StudentSignUpPageState extends State<StudentSignUpPage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 3, 48, 85),
-        title: Text("Kayıt ol"),
+        title: Consumer(builder: (context, ref, child) {
+          var title = ref.watch(signupPageTitleProvider);
+          return Text(title);
+        },),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
           child: Column(
             children: [
-              getLogoAnimation(),
+              AnimationLogo(),
               SizedBox(height: 10,),
               Form(
                   autovalidateMode: AutovalidateMode.always,
@@ -92,6 +87,7 @@ class _StudentSignUpPageState extends State<StudentSignUpPage>
 
   Widget getMyPasswordField() {
     return TextFormField(
+      obscureText: true,
       controller: txtPassword,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
@@ -136,22 +132,5 @@ class _StudentSignUpPageState extends State<StudentSignUpPage>
     if (result == 1) {
       Navigator.of(context).pop(true);
     }
-  }
-
-  Widget getLogoAnimation() {
-    return AnimatedBuilder(
-      animation: _animationController!,
-      builder: (context, child) {
-        return Transform.rotate(
-          angle: _animationController!.value * 2.0 * pi,
-          child: Container(
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/logo.png"),
-              radius: 130,
-            ),
-          ),
-        );
-      },
-    );
   }
 }
