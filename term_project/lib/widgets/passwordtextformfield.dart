@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:term_project/providers/allproviders.dart';
@@ -16,14 +17,14 @@ class PasswordTextFormField extends ConsumerWidget {
       obscureText: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-        hintText: "Şifre",
-        labelText: "Şifre",
+        hintText: "password".tr(),
+        labelText: "password".tr(),
         icon: Icon(Icons.lock_outline),
         errorStyle: TextStyle(color: Color.fromARGB(255, 205, 22, 9)),
       ),
       validator: (value) {
         if (value!.length == 0) {
-          return "Şifre bilgisi boş geçilemez";
+          return "passwordemptyerror".tr();
         }
       },
       onSaved: (newValue) {

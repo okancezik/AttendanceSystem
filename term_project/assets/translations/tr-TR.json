@@ -1,0 +1,11 @@
+{
+    "username":"Kullanıcı adı",
+    "password":"Şifre",
+    "rememberme":"Beni Hatırla",
+    "signup":"Kayıt Ol",
+    "signin":"Giriş Yap",
+    "passwordemptyerror":"Şifre bilgisi boş geçilemez...",
+    "usernameemptyerror":"Kullanıcı adı boş geçilemez...",
+    "createpassword":"Şifre oluşturun",
+    "createusername":"Kullanıcı adı oluşturun"
+}

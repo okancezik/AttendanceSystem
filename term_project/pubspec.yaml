@@ -24,6 +24,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   shake_animation_widget:
+  easy_localization:
 
 dev_dependencies:
   flutter_test:
@@ -43,7 +44,8 @@ flutter:
   #   - assets/images/
 
   assets:
-  - assets/
+    - assets/
+    - assets/translations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

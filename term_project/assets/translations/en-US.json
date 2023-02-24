@@ -1,0 +1,11 @@
+{
+    "username":"Username",
+    "password":"Password",
+    "rememberme":"Remember me",
+    "signup":"Sign Up",
+    "signin":"Sign In",
+    "passwordemptyerror":"Password can not be empty...",
+    "usernameemptyerror":"Username can not be empty...",
+    "createpassword":"Create a password",
+    "createusername":"Create a username"
+}

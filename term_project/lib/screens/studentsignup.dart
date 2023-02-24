@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:term_project/data/dbhelper.dart';
@@ -34,7 +35,7 @@ class _StudentSignUpPageState extends State<StudentSignUpPage> {
         backgroundColor: Color.fromARGB(255, 3, 48, 85),
         title: Consumer(builder: (context, ref, child) {
           var title = ref.watch(signupPageTitleProvider);
-          return Text(title);
+          return Text(title.tr());
         },),
       ),
       body: SingleChildScrollView(
@@ -72,11 +73,11 @@ class _StudentSignUpPageState extends State<StudentSignUpPage> {
       controller: txtUsername,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-          labelText: "Kullanıcı adı",
-          hintText: "Kullanıcı adı"),
+          labelText: "username".tr(),
+          hintText: "username".tr()),
       validator: (value) {
         if (value!.length == 0) {
-          return "kullanıcı adı oluşturun";
+          return "createusername".tr();
         }
       },
       onSaved: (newValue) {
@@ -91,11 +92,11 @@ class _StudentSignUpPageState extends State<StudentSignUpPage> {
       controller: txtPassword,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-          labelText: "Şifre",
-          hintText: "Şifre"),
+          labelText: "password".tr(),
+          hintText: "password".tr()),
       validator: (value) {
         if (value!.length == 0) {
-          return "parola oluşturun";
+          return "createpassword".tr();
         }
       },
       onSaved: (newValue) {
@@ -118,7 +119,7 @@ class _StudentSignUpPageState extends State<StudentSignUpPage> {
             _formKey.currentState!.reset();
           }
         },
-        child: Text("kayıt ol"),
+        child: Text("signup".tr()),
         style: ElevatedButton.styleFrom(
           backgroundColor: Color.fromARGB(255, 3, 48, 85),
         ),
